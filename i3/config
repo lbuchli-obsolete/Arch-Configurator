@@ -1,6 +1,11 @@
 # Default modkey
 set $mod Mod4
 
+# Set enviroment variables
+exec export EDITOR=vim
+exec export BROWSER=Firefox
+exec export RANGER_LOAD_DEFAULT_RC=FALSE
+
 # Hide borders
 default_border none
 default_floating_border none
@@ -31,10 +36,10 @@ bindsym $mod+Shift+q kill
 # start drofi dmenu
 #bindsym $mod+Tab exec --no-startup-id rofi -show window
 #bindsym $mod+Shift+d exec --no-startup-id rofi -show run
-bindsym $mod+d exec --no-startup-id rofi -show drun
+bindsym $mod+d exec --no-startup-id rofi -show drun -sort -matching fuzzy
  
 # file manager
-bindsym $mod+Shift+f exec termite -g ranger
+bindsym $mod+Shift+f exec termite -e ranger
 
 ################################################################################################
 ## sound-section - DO NOT EDIT if you wish to automatically upgrade Alsa -> Pulseaudio later! ##
@@ -81,10 +86,10 @@ bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
 # move focused window
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+odiaeresis move right
+#bindsym $mod+Shift+j move left
+#bindsym $mod+Shift+k move down
+#bindsym $mod+Shift+l move up
+#bindsym $mod+Shift+odiaeresis move right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
@@ -112,7 +117,7 @@ bindsym $mod+Shift+space floating toggle
 bindsym $mod+space focus mode_toggle
 
 # toggle sticky
-bindsym $mod+Shift+s sticky toggle
+#bindsym $mod+Shift+s sticky toggle
 
 # focus the parent container
 bindsym $mod+a focus parent
@@ -181,45 +186,33 @@ bindsym $mod+Shift+r restart
 #bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 #bindsym $mod+Shift+e exec ~/.config/i3/scripts/powermenu.sh
 # Create Log out, Reboot, Poweroff bindings
-mode "Exit (L)ogout, (R)eboot, (P)oweroff" {
-        bindsym $mod+r exec systemctl reboot
-        bindsym $mod+l exit
-        bindsym $mod+p exec systemctl poweroff
+#mode "Exit (L)ogout, (R)eboot, (P)oweroff" {
+        #bindsym $mod+r exec ~/.config/i3/scripts/reboot.sh
+        #bindsym $mod+l exec ~/.config/i3/scripts/logout.sh
+        #bindsym $mod+p exec ~/.config/i3/scripts/poweroff.sh
 
-        # back to normal: Enter or Escape
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-}
-
-bindsym $mod+Shift+e mode "Exit (L)ogout, (R)eboot, (P)oweroff"
-
-# Set shut down, restart and locking features
-#bindsym $mod+Shift+w mode "$mode_system"
-#set $mode_system (l)ock, (e)xit, switch_(u)ser, (s)uspend, (h)ibernate, (r)eboot, (Shift+s)hutdown
-#mode "$mode_system" {
-#    bindsym l exec --no-startup-id ~/.config/i3/lock.sh, mode "default"
-#    bindsym s exec --no-startup-id i3exit suspend, mode "default"
-#    bindsym u exec --no-startup-id i3exit switch_user, mode "default"
-#    bindsym e exec --no-startup-id i3exit logout, mode "default"
-#    bindsym h exec --no-startup-id i3exit hibernate, mode "default"
-#    bindsym r exec --no-startup-id i3exit reboot, mode "default"
-#    bindsym Shift+s exec --no-startup-id i3exit shutdown, mode "default"
-
-    # exit system mode: "Enter" or "Escape"
-#    bindsym Return mode "default"
-#    bindsym Escape mode "default"
+        ## back to normal: Enter or Escape
+        #bindsym Return mode "default"
+        #bindsym Escape mode "default"
 #}
 
-# Power Menu
-mode "powermenu" {
-    bindsym 1 exec --no-startup-id i3exit shutdown, mode "default"
-    bindsym 2 exec --no-startup-id i3exit reboot, mode "default"
-    bindsym 3 exec --no-startup-id i3exit logout, mode "default"
-    bindsym Escape mode "default"
+#bindsym $mod+Shift+e mode "Exit (L)ogout, (R)eboot, (P)oweroff"
+
+#Set shut down, restart and locking features
+bindsym $mod+Shift+e mode "$mode_system"
+set $mode_system (e)xit, (r)eboot, (s)hutdown
+mode "$mode_system" {
+    #bindsym l exec --no-startup-id ~/.config/i3/lock.sh, mode "default"
+    bindsym e exit, mode "default"
+    bindsym r exec --no-startup-id reboot, mode "default"
+    bindsym s exec --no-startup-id shutdown -h now, mode "default"
+
+    #exit system mode: "Enter" or "Escape"
     bindsym Return mode "default"
+    bindsym Escape mode "default"
 }
 
-# Resize window (you can also use the mouse for that)
+#Resize window (you can also use the mouse for that)
 bindsym $mod+r mode "resize"
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
@@ -369,3 +362,26 @@ bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q sset Master 5%-
 # Screen brightness controls
 bindsym XF86MonBrightnessUp exec "xbacklight -inc 10; notify-send 'brightness up'"
 bindsym XF86MonBrightnessDown exec "xbacklight -dec 10; notify-send 'brightness down'"
+
+#============Session-Saver===========
+mode "Save Session" {
+    bindsym 1 exec i3-save-tree > ~/.config/i3/workspaces/ws1.json, mode "default"
+    bindsym 2 exec i3-save-tree > ~/.config/i3/workspaces/ws2.json, mode "default"
+    bindsym 3 exec i3-save-tree > ~/.config/i3/workspaces/ws3.json, mode "default"
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+Shift+s mode "Save Session"
+
+mode "Restore Session" {
+    bindsym 1 append_layout ~/.config/i3/workspaces/ws1.json, mode "default"
+    bindsym 2 append_layout ~/.config/i3/workspaces/ws2.json, mode "default"
+    bindsym 3 append_layout ~/.config/i3/workspaces/ws3.json, mode "default"
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+Shift+l mode "Restore Session"
