@@ -45,3 +45,7 @@ git config --global user.name \"John Doe\"
 git config --global user.email johndoe@example.com
 ```
 And [generate an ssh key for git](https://help.github.com/articles/connecting-to-github-with-ssh/)
+And add it to your .bash_profile so it will get loaded when you use a terminal:
+```bash
+eval $(keychain --eval --quiet id_ed25519 id_rsa ~/.ssh/MYKEY)
+```
