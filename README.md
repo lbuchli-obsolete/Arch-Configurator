@@ -3,6 +3,9 @@
 This is a script used for configuring Arch-Based distributions (pacman is required)
 It is mostly written for myself and thus not very user-friendly or error-tolerating.
 
+## Preview
+![alt text](https://github.com/CubePhoenix/ArchConfigurator/raw/master/screenshot.png "Looks like this after installation")
+
 To install, clone the repository into any directory and type:
 
 ```bash
