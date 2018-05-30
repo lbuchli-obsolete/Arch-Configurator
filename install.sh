@@ -19,6 +19,7 @@ then
     echo "Installing Dependencies..."
     # Install used packages
     sudo pacman --noconfirm -S termite i3-gaps compton feh rofi polybar xorg-xrdb git xcompmgr scrot perl-anyevent-i3 ctags
+    sudo pacman --noconfirm -S gsimplecal numix-gtk-theme ttf-font-awesome
 
     # configurate git
     git config --global --add url."git@github.com:".insteadOf "https://github.com/"
@@ -102,6 +103,8 @@ mkdir $home_dir/.config/polybar
 mkdir $home_dir/.config/termite
 mkdir $home_dir/.config/rofi
 mkdir $home_dir/.config/i3/workspaces
+mkdir $home_dir/.config/gtk-3.0
+mkdir $home_dir/.config/gsimplecal
 
 cp ./i3/config $home_dir/.config/i3/config
 cp -r ./assets $home_dir/.config/i3
@@ -113,6 +116,9 @@ cp ./power/logout.sh $home_dir/.config/i3/scripts/logout.sh
 cp ./pbconfig $home_dir/.config/polybar/config
 cp ./termitecfg $home_dir/.config/termite/config
 cp ./roficonfig $home_dir/.config/rofi/config
+cp ./gscconfig $home_dir/.config/gsimplecal/config
+cp ./gtk/gtk.css $home_dir/.config/gtk-3.0/gtk.css
+cp ./gtk/settings.ini $home_dir/.config/gtk-3.0/settings.ini
 
 cp ./power/poweroff.desktop $home_dir/.local/share/applications/poweroff.desktop
 cp ./power/reboot.desktop $home_dir/.local/share/applications/reboot.desktop
