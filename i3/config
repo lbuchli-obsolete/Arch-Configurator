@@ -289,7 +289,7 @@ exec xcompmgr -c -f -n
 #changing the gap size.
 # gaps inner|outer current|all set|plus|minus <px>
 gaps inner 6
-gaps outer 12
+gaps outer 0
 
 # Smart gaps (gaps used if only more than one container on the workspace)
 #smart_gaps on
