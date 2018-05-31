@@ -18,8 +18,8 @@ if [[ $REPLY =~ ^[Yy]$ ]]
 then
     echo "Installing Dependencies..."
     # Install used packages
-    sudo pacman --noconfirm -S termite i3-gaps compton feh rofi polybar xorg-xrdb git xcompmgr scrot perl-anyevent-i3 ctags
-    sudo pacman --noconfirm -S gsimplecal numix-gtk-theme ttf-font-awesome
+    sudo pacman --noconfirm -S termite i3-gaps compton feh rofi xorg-xrdb git xcompmgr scrot perl-anyevent-i3 ctags
+    sudo pacman --noconfirm -S gsimplecal numix-gtk-theme ttf-font-awesome bdf-unifont
 
     # configurate git
     git config --global --add url."git@github.com:".insteadOf "https://github.com/"
@@ -30,6 +30,13 @@ then
     makepkg -si --noconfirm
     cd ..
     /bin/rm -r -f ./polybar
+    
+    # install siji font
+    git clone https://aur.archlinux.org/siji-git.git siji/
+    cd siji
+    makepkg -si
+    cd ..
+    /bin/rm -r -f ./siji
 fi
 
 echo
