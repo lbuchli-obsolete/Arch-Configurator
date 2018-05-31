@@ -37,6 +37,10 @@ read -p "Do you want to install other tools? (vim, ranger)" -n 1 -r
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
     echo "Installing Tools..."
+    sudo pacman --noconfirm -S python python-pip python2 python2-pip go go-tools
+    sudo pip3 install neovim
+    sudo pip install neovim
+    go get -u github.com/mdempsky/gocode
     sudo pacman --noconfirm -S neovim ranger curl evince texlive-core
     mkdir $home_dir/.config/nvim/bundle
 
@@ -51,8 +55,6 @@ then
 
     ranger --copy-config=all
     ranger --copy-config=scope
-
-    sudo pip3 install neovim
 
     echo
     read -p "Append to System Configs? (Only do this ONCE)" -n 1 -r
@@ -106,6 +108,9 @@ mkdir $home_dir/.config/i3/workspaces
 mkdir $home_dir/.config/gtk-3.0
 mkdir $home_dir/.config/gsimplecal
 
+mkdir $home_dir/go
+mkdir $home_dir/go/bin
+
 cp ./i3/config $home_dir/.config/i3/config
 cp -r ./assets $home_dir/.config/i3
 cp ./wallpaper.sh $home_dir/.config/i3/scripts/wallpaper.sh
@@ -123,6 +128,8 @@ cp ./gtk/settings.ini $home_dir/.config/gtk-3.0/settings.ini
 cp ./power/poweroff.desktop $home_dir/.local/share/applications/poweroff.desktop
 cp ./power/reboot.desktop $home_dir/.local/share/applications/reboot.desktop
 cp ./power/logout.desktop $home_dir/.local/share/applications/logout.desktop
+
+cp -n ./bash_profile $home_dir/.bash_profile
 
 chmod +x $home_dir/.config/i3/scripts/*
 
