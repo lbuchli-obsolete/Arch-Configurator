@@ -98,3 +98,5 @@ nnoremap <Leader>P :LLPStartPreview<CR>
 let g:deoplete#enable_at_startup = 1
 " Close autocompletion preview after selected
 autocmd CompleteDone * pclose!
+" Allow saving of files as sudo when I forgot to start vim using sudo.
+cmap w!! w !sudo tee > /dev/null %
